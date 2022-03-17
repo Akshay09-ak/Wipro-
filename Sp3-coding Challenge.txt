@@ -1,0 +1,97 @@
+package com.jap.masterychallenge1;
+
+import java.util.Scanner;
+
+public class SmartTravelForex {
+	double JPY = 0.67;
+	double EUR = 85.37;
+	double GBP = 94.5;
+	double USD = 74.3;
+	double AED = 20.25;
+    /**
+     * This method converts the given amount in INR to the currency of choice
+     * @param amount
+     * @param choice
+     * @return the exchange rate depending on choice of currency
+     */
+    public static double currentExchangeRates(double amount, int choice) {
+       SmartTravelForex m = new SmartTravelForex();
+    	double e = 0.0;
+    	switch(choice) {
+    	case 1: e = m.JPY * amount;
+    	break;
+    	case 2: e = m.EUR * amount;
+    	break;
+    	case 3: e = m.GBP * amount;
+    	break;
+    	case 4: e = m.USD * amount;
+    	break;
+    	case 5: e = m.AED * amount;
+    	break;
+    	}
+		if (e<0){
+				e = -1.0;
+			}
+    	return e;
+    }
+
+    /**
+     * This method converts a given source currency to the desired target currency
+     * @param sourceCurrency
+     * @param targetCurrency
+     * @param amountToBeConverted
+     * @return converted amount from a source currency to the desired target currency
+     */
+
+    public static double convertGivenCurrencyIntoDesiredCurrency(int sourceCurrency, int targetCurrency, double amountToBeConverted) {
+           double a = currentExchangeRates(amountToBeConverted,sourceCurrency);
+           double b = currentExchangeRates(1,targetCurrency);
+		   if (sourceCurrency == targetCurrency){
+			   return -1.0;
+		   }else
+           return a/b;
+    }
+    /**
+     *  This method displays the currency conversion rates in a tabular format
+     *
+     */
+    public static void displayForexDetails() {
+		int arr[] = {1,10,20,50,100};
+		SmartTravelForex m = new SmartTravelForex();
+    	System.out.println("The exchanges rates for each currency (1,10,20,50,100) in INR");
+    	System.out.println();
+    	System.out.printf("%-7s %-7s %-10s %-7s %-6s %s\n","", arr[0],arr[1],arr[2],arr[3],arr[4]);
+    	System.out.printf("%-7s %-7s %-10s %-7s %-7s %s\n","JPY",arr[0]*m.JPY,arr[1]*m.JPY,arr[2]*m.JPY,arr[3]*m.JPY,arr[4]*m.JPY);
+    	System.out.printf("%-7s %-7s %-10s %-7s %-7s %s\n","EUR",arr[0]*m.EUR,arr[1]*m.EUR,arr[2]*m.EUR,arr[3]*m.EUR,arr[4]*m.EUR);
+    	System.out.printf("%-7s %-7s %-10s %-7s %-7s %s\n","GBP",arr[0]*m.GBP,arr[1]*m.GBP,arr[2]*m.GBP,arr[3]*m.GBP,arr[4]*m.GBP);
+    	System.out.printf("%-7s %-7s %-10s %-7s %-7s %s\n","USD",arr[0]*m.USD,arr[1]*m.USD,arr[2]*m.USD,arr[3]*m.USD,arr[4]*m.USD);
+    	System.out.printf("%-7s %-7s %-10s %-7s %-7s %s\n","AED",arr[0]*m.AED,arr[1]*m.AED,arr[2]*m.AED,arr[3]*m.AED,arr[4]*m.AED);
+    }
+	
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        displayForexDetails();
+        int source = 0;
+        int target = 0;
+        double amountToBeConverted = 0;
+        System.out.println("Do you wish to check conversion rates today : (y/n) ");
+        char choice = sc.next().charAt(0);
+        if (choice == 'y') {
+            System.out.println("Exchange Rate of currency can be done for \n 1. JPY \n 2. EUR \n 3. GBP \n 4. USD \n 5. AED ");
+            System.out.println("Enter the source currency(Currency I have) : ");
+            // Accept the source currency 1 for JPY, 2 for EUR, 3 for GBP, 4 for USD, 5 for AED
+            source = sc.nextInt();
+            System.out.println("Enter the target currency(Currency I want) : ");
+            // Accept the target currency 1 for JPY, 2 for EUR, 3 for GBP, 4 for USD, 5 for AED
+            target = sc.nextInt();;
+            System.out.println("Enter the amount to be converted : ");
+            //Accept the amount to be converted
+            amountToBeConverted = sc.nextInt();;
+            // Display the amount converted
+            System.out.println("The converted exchange rate is : " + convertGivenCurrencyIntoDesiredCurrency(source, target, amountToBeConverted));
+        } else {
+            System.out.println("Thanks for checking into currency convertor");
+        }
+		sc.close();
+    }
+}
